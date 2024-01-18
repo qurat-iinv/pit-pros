@@ -5,46 +5,33 @@ import sizer from '../../helpers/sizer';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     marginTop: sizer.moderateVerticalScale(20),
   },
 
-  circleContainer: {
-    width: sizer.moderateScale(30),
-    height: sizer.moderateScale(30),
-    borderWidth: 2,
+  stepContainer: {
+    minWidth: sizer.moderateScale(120),
+    height: 30,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 100,
+    borderTopRightRadius: 25,
+    borderBottomRightRadius: 25,
+    shadowColor: '#52006A',
+    elevation: 4,
   },
 
-  innerFilledCircle: {
-    width: sizer.moderateScale(20),
-    height: sizer.moderateScale(20),
+  iconContainer: {
+    width: sizer.moderateScale(13),
+    height: sizer.moderateScale(13),
     backgroundColor: '#DC0028',
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 50,
-  },
-
-  textContainer: {
-    position: 'absolute',
-    bottom: -36,
-    width: sizer.moderateScale(50),
-    height: sizer.moderateVerticalScale(40),
+    alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'pink',
+    marginRight: 5,
   },
 
   textStyle: {
     fontSize: sizer.fontScale(9),
-    textAlign: 'center',
-  },
-
-  line: {
-    width: '18%',
-    height: 2,
   },
 });
 

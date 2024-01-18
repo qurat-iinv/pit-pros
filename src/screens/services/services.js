@@ -1,14 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 
 import {Container, Typography} from '../../atom-components';
 import Header from '../../components/custom-headers/header';
 import Card from '../../components/ui-card/card';
-import Stepper from '../../components/stepper/stepper';
 import sizer from '../../helpers/sizer';
-import SwiperComponent from './shared/swiper';
+import Stepper from '../../components/stepper/stepper';
+
+export const StepperHeading = ({title}) => {
+  return (
+    <Typography
+      size={sizer.fontScale(14)}
+      bold
+      mT={sizer.moderateVerticalScale(40)}>
+      {title}
+    </Typography>
+  );
+};
 
 const Services = () => {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const handleNextStep = index => {
+    setActiveStep(index);
+  };
+
   return (
     <Container>
       <Header title="New Service Order" titleCenter />
@@ -19,19 +35,10 @@ const Services = () => {
       </View>
 
       <View>
-        <Stepper />
+        <Stepper activeStep={activeStep} setActiveStep={setActiveStep} />
       </View>
 
-      <View>
-        <Typography
-          size={sizer.fontScale(14)}
-          bold
-          mT={sizer.moderateVerticalScale(40)}>
-          Request Details
-        </Typography>
-      </View>
-
-      <SwiperComponent />
+      {/* <SwiperScreen /> */}
     </Container>
   );
 };

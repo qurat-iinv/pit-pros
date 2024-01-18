@@ -1,96 +1,71 @@
-import React, {Fragment, useRef, useState} from 'react';
-import {Text, View, Animated} from 'react-native';
-
-import sizer from '../../helpers/sizer';
+import React from 'react';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 
+import sizer from '../../helpers/sizer';
 import styles from './ui';
 
-const Stepper = () => {
-  const [activeStep, setActiveStep] = useState(0);
-  const ref = useRef(new Animated.Value(0)).current;
-
+const Stepper = ({activeStep, setActiveStep}) => {
   const steps = [
     'Request Details',
     'Services And Products',
     'Schedule',
     'Authorize',
+    'Notes',
   ];
-//   const handleAnimation = () => {
-//     Animated.timing(animation, {
-//       toValue: 1,
-//       duration: 3000,
-//       useNativeDriver: false,
-//     }).start();
-//   };
-
-  const handleIncreaseStep = () => {
-    setActiveStep(prev => prev + 1);
-  };
-
-  const Line = ({isStepDone}) => {
-    return (
-      <View
-        style={[
-          styles.line,
-          {backgroundColor: isStepDone ? '#DC0028' : '#C7C7C7'},
-        ]}></View>
-    );
-  };
 
   return (
-    <View style={styles.container}>
-      {steps.map((stepTitle, currentIndex) => {
-        const isStepInProgress = activeStep === currentIndex;
-        const isStepDone = activeStep > currentIndex;
-        const isStepIncomplete = !isStepInProgress && !isStepDone;
-        const isLastStep = currentIndex === steps.length - 1;
+    <ScrollView horizontal showsHorizontalScrollIndicator={false} pagingEnabled>
+      <View style={styles.container}>
+        {steps.map((stepTitle, currentIndex) => {
+          const isStepInProgress = activeStep === currentIndex;
+          const isStepDone = activeStep > currentIndex;
+          const isStepIncomplete = !isStepInProgress && !isStepDone;
+          const isAfterFirstStep = currentIndex > 0;
 
-        const circleStyle = isStepInProgress
-          ? [styles.circleContainer, {borderColor: '#DC0028'}]
-          : isStepIncomplete
-          ? [styles.circleContainer, {borderColor: '#C7C7C7'}]
-          : isStepDone
-          ? [
-              styles.innerFilledCircle,
-              {width: sizer.moderateScale(30), height: sizer.moderateScale(30)},
-            ]
-          : null;
+          const stepBgColor = isStepInProgress
+            ? {backgroundColor: '#DC0028'}
+            : isStepIncomplete
+            ? {backgroundColor: 'white'}
+            : isStepDone
+            ? {backgroundColor: 'white'}
+            : null;
 
-        const textColorStyle = isStepInProgress
-          ? [styles.textStyle, {color: '#DC0028'}]
-          : isStepIncomplete
-          ? [styles.textStyle, {color: '#C7C7C7'}]
-          : isStepDone
-          ? [styles.textStyle, {color: 'black'}]
-          : null;
+          const textColorStyle = isStepInProgress
+            ? [styles.textStyle, {color: 'white'}]
+            : isStepIncomplete
+            ? [styles.textStyle, {color: '#C7C7C7'}]
+            : isStepDone
+            ? [styles.textStyle, {color: '#DC0028'}]
+            : null;
 
-        return (
-          <Fragment key={currentIndex}>
-            <View style={styles.circleContainer}>
-              <View
-                onStartShouldSetResponder={() => setActiveStep(currentIndex)}
-                style={circleStyle}>
-                {isStepInProgress && (
-                  <View style={styles.innerFilledCircle}></View>
-                )}
-                {isStepDone ? (
-                  <Icon name="check" size={sizer.fontScale(18)} color="white" />
-                ) : null}
-              </View>
-
-              <View style={styles.textContainer}>
-                <Text style={textColorStyle}>{stepTitle}</Text>
-              </View>
-            </View>
-
-            {!isLastStep && <Line isStepDone={isStepDone} />}
-          </Fragment>
-        );
-      })}
-    </View>
+          return (
+            <TouchableOpacity
+              key={currentIndex}
+              activeOpacity={1}
+              style={[
+                styles.stepContainer,
+                stepBgColor,
+                isAfterFirstStep
+                  ? {left: -10 * currentIndex, zIndex: -1 * currentIndex}
+                  : null,
+                currentIndex === 1 && isStepDone ? {width: 150} : null,
+              ]}
+              onPress={() => {
+                setActiveStep(currentIndex);
+              }}>
+              {isStepDone ? (
+                <View style={styles.iconContainer}>
+                  <Icon name="check" size={sizer.fontScale(10)} color="white" />
+                </View>
+              ) : null}
+              <Text style={textColorStyle}>{stepTitle}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 
 export default Stepper;
-

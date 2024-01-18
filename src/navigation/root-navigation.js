@@ -78,7 +78,7 @@ function RootNavigation() {
   return (
     <>
       <StatusBar backgroundColor={COLORS.white} barStyle={'dark-content'} />
-      <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: COLORS.primary,}}>
         <NavigationContainer>
           {isLogged ? <AppStack /> : <LogStack />}
         </NavigationContainer>
