@@ -6,13 +6,11 @@ import Header from '../../components/custom-headers/header';
 import Card from '../../components/ui-card/card';
 import sizer from '../../helpers/sizer';
 import Stepper from '../../components/stepper/stepper';
+import SwiperScreen from './shared/swiperScreen';
 
 export const StepperHeading = ({title}) => {
   return (
-    <Typography
-      size={sizer.fontScale(14)}
-      bold
-      mT={sizer.moderateVerticalScale(40)}>
+    <Typography size={sizer.fontScale(14)} bold>
       {title}
     </Typography>
   );
@@ -20,10 +18,13 @@ export const StepperHeading = ({title}) => {
 
 const Services = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const [activeSwipeIndex, setActiveSwipeIndex] = useState(0);
 
   const handleNextStep = index => {
     setActiveStep(index);
   };
+
+  console.log(activeSwipeIndex);
 
   return (
     <Container>
@@ -38,7 +39,10 @@ const Services = () => {
         <Stepper activeStep={activeStep} setActiveStep={setActiveStep} />
       </View>
 
-      {/* <SwiperScreen /> */}
+      <SwiperScreen
+        activeSwipeIndex={activeSwipeIndex}
+        setActiveSwipeIndex={setActiveSwipeIndex}
+      />
     </Container>
   );
 };

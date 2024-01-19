@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
+import {ScrollView} from 'react-native-gesture-handler';
 
 import sizer from '../../helpers/sizer';
 import styles from './ui';
@@ -15,13 +16,18 @@ const Stepper = ({activeStep, setActiveStep}) => {
   ];
 
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} pagingEnabled>
-      <View style={styles.container}>
+    <ScrollView
+      horizontal
+      style={{marginHorizontal: -16}}
+      showsHorizontalScrollIndicator={false}
+      pagingEnabled>
+      <View style={[styles.container]}>
         {steps.map((stepTitle, currentIndex) => {
           const isStepInProgress = activeStep === currentIndex;
           const isStepDone = activeStep > currentIndex;
           const isStepIncomplete = !isStepInProgress && !isStepDone;
-          const isAfterFirstStep = currentIndex > 0;
+          const isLastStep = currentIndex === steps.length - 1;
+          const isFirstStep = currentIndex === 0;
 
           const stepBgColor = isStepInProgress
             ? {backgroundColor: '#DC0028'}
@@ -46,10 +52,9 @@ const Stepper = ({activeStep, setActiveStep}) => {
               style={[
                 styles.stepContainer,
                 stepBgColor,
-                isAfterFirstStep
-                  ? {left: -10 * currentIndex, zIndex: -1 * currentIndex}
-                  : null,
-                currentIndex === 1 && isStepDone ? {width: 150} : null,
+                !isLastStep ? {marginRight: -15} : null,
+                {zIndex: -1 * currentIndex},
+                {paddingLeft: isStepDone && !isFirstStep ? 25 : 20},
               ]}
               onPress={() => {
                 setActiveStep(currentIndex);
@@ -59,7 +64,7 @@ const Stepper = ({activeStep, setActiveStep}) => {
                   <Icon name="check" size={sizer.fontScale(10)} color="white" />
                 </View>
               ) : null}
-              <Text style={textColorStyle}>{stepTitle}</Text>
+              <Text style={[textColorStyle, {fontSize: 12}]}>{stepTitle}</Text>
             </TouchableOpacity>
           );
         })}

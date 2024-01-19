@@ -28,15 +28,15 @@ const fontScale = size => {
   return size * PixelRatio.getFontScale();
 };
 
-// console.log(
-//   isTablet
-//     ? 'Tablet Screen: ' +
-//         `Width: ${width},
-//     Height: ${height}`
-//     : 'Mobile Screen: ' +
-//         `Width: ${width},
-//        Height: ${height}`,
-// );
+console.log(
+  isTablet
+    ? 'Tablet Screen: ' +
+        `Width: ${width},
+    Height: ${height}`
+    : 'Mobile Screen: ' +
+        `Width: ${width},
+       Height: ${height}`,
+);
 
 // console.log(
 //   isTablet

@@ -6,18 +6,22 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     marginTop: sizer.moderateVerticalScale(20),
+    marginBottom: sizer.moderateVerticalScale(3),
+    paddingHorizontal: 16
   },
 
   stepContainer: {
-    minWidth: sizer.moderateScale(120),
-    height: 30,
+    minWidth: sizer.moderateScale(133),
+    paddingRight: 20,
+    height: sizer.moderateVerticalScale(33),
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderTopRightRadius: 25,
     borderBottomRightRadius: 25,
-    shadowColor: '#52006A',
-    elevation: 4,
+    shadowColor: '#000',
+    elevation: 3,
+    marginHorizontal: 1
   },
 
   iconContainer: {
@@ -27,7 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 5,
+    marginRight: sizer.moderateScale(5),
   },
 
   textStyle: {

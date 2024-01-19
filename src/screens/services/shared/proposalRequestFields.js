@@ -5,7 +5,7 @@ import {Text, View} from 'react-native';
 import sizer from '../../../helpers/sizer';
 import {StepperHeading} from '../services';
 
-const ProposalRequestFields = ({fieldType}) => {
+const ProposalRequestFields = ({fieldType, width, height}) => {
   const [dropdownSelectedVal, setDropdownSelectedVal] = useState(null);
 
   const dropdownOptions = [
@@ -24,13 +24,18 @@ const ProposalRequestFields = ({fieldType}) => {
   };
 
   return (
-    <View>
+    <View
+      style={{
+        // backgroundColor: 'lightblue',
+        width: sizer.moderateScale(353),
+        height: height,
+        paddingHorizontal: 16,
+      }}>
       {fieldType === 'RequestDetails' && (
         <>
           <StepperHeading title="Request Details" />
 
-          <View
-            style={{marginTop: sizer.moderateVerticalScale(25), padding: 2}}>
+          <View style={{marginTop: sizer.moderateVerticalScale(25)}}>
             <InputField
               label="Who is requesting service *"
               labelStyle={{color: 'black'}}
@@ -106,6 +111,12 @@ const ProposalRequestFields = ({fieldType}) => {
       {fieldType === 'Authorization' && (
         <>
           <StepperHeading title="Authorization" />
+        </>
+      )}
+
+      {fieldType === 'Notes' && (
+        <>
+          <StepperHeading title="Notes" />
           <View
             style={{
               marginTop: sizer.moderateVerticalScale(25),
