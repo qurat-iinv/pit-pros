@@ -101,29 +101,57 @@ const ProposalRequestFields = ({fieldType, width, height}) => {
                 // left={props => <List.Icon {...props} icon="folder" />}
                 expanded={expanded}
                 onPress={handlePress}>
-                <View style={{flexDirection: 'row'}}>
-                  <List.Item
-                    style={{flex: 0.5, borderWidth: 1, borderColor: 'red'}}
-                    title={
-                      <View style={{flex:1, backgroundColor: "yellow"}}>
-                        <CustomDropDown
-                          data={dropdownOptions}
-                          mt={sizer.moderateVerticalScale(10)}
-                          labelStyle={{color: 'black'}}
-                          label="Customer Complaint *"
-                          value={dropdownSelectedVal}
-                          handleChange={handleChange}
-                          valueField="value"
-                          
-                        />
-                      </View>
-                    }
-                  />
-                  <List.Item
-                    style={{flex: 0.5, borderWidth: 1, borderColor: 'red'}}
-                    title={<Text>Hello</Text>}
-                  />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    gap: 10,
+                  }}>
+                  <View style={{flex: 1}}>
+                    <CustomDropDown
+                      data={dropdownOptions}
+                      mt={sizer.moderateVerticalScale(10)}
+                      labelStyle={{color: 'black'}}
+                      label="Customer Complaint *"
+                      value={dropdownSelectedVal}
+                      handleChange={handleChange}
+                      valueField="value"
+                    />
+                  </View>
+                  <View style={{flex: 1}}>
+                    <CustomDropDown
+                      data={dropdownOptions}
+                      mt={sizer.moderateVerticalScale(10)}
+                      labelStyle={{color: 'black'}}
+                      label="Customer Complaint *"
+                      value={dropdownSelectedVal}
+                      handleChange={handleChange}
+                      valueField="value"
+                    />
+                  </View>
                 </View>
+                <InputField
+                  label="Invoiced Hours *"
+                  labelStyle={{color: 'black'}}
+                  placeholder="1.50000"
+                  mt={sizer.moderateVerticalScale(10)}
+                  inputStyle={{fontWeight: '300'}}
+                />
+                <CustomDropDown
+                  data={dropdownOptions}
+                  mt={sizer.moderateVerticalScale(10)}
+                  labelStyle={{color: 'black'}}
+                  label="Customer Complaint *"
+                  value={dropdownSelectedVal}
+                  handleChange={handleChange}
+                  valueField="value"
+                />
+                <InputField
+                  label="DriveAway Amount"
+                  labelStyle={{color: 'black'}}
+                  placeholder="1.50000"
+                  mt={sizer.moderateVerticalScale(10)}
+                  inputStyle={{fontWeight: '300'}}
+                />
               </List.Accordion>
             </List.Section>
           </View>
