@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -6,20 +6,34 @@ import {ScrollView} from 'react-native-gesture-handler';
 import sizer from '../../helpers/sizer';
 import styles from './ui';
 
-const Stepper = ({activeStep, setActiveStep}) => {
+const Stepper = ({
+  activeSwipeIndex,
+  activeStep,
+  setActiveStep,
+  setActiveSwipeIndex,
+}) => {
   const steps = [
     'Request Details',
-    'Services And Products',
+    'Services & Products',
     'Schedule',
     'Authorize',
     'Notes',
   ];
+
+  const scrollRef = useRef();
+  const scrollToIndex = index => {
+    scrollRef?.current?.scrollTo({x: index * 133, y: 0, animated: true});
+  };
+  useEffect(() => {
+    scrollToIndex(activeStep);
+  }, [activeStep]);
 
   return (
     <ScrollView
       horizontal
       style={{marginHorizontal: -16}}
       showsHorizontalScrollIndicator={false}
+      ref={scrollRef}
       pagingEnabled>
       <View style={[styles.container]}>
         {steps.map((stepTitle, currentIndex) => {
@@ -58,6 +72,7 @@ const Stepper = ({activeStep, setActiveStep}) => {
               ]}
               onPress={() => {
                 setActiveStep(currentIndex);
+                setActiveSwipeIndex(currentIndex);
               }}>
               {isStepDone ? (
                 <View style={styles.iconContainer}>

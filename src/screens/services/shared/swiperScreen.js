@@ -1,10 +1,12 @@
-import React, {useRef, useState} from 'react';
-import {Dimensions, View, useWindowDimensions} from 'react-native';
-import ProposalRequestFields from './proposalRequestFields';
-import {ScrollView, GestureHandlerRootView} from 'react-native-gesture-handler';
+import React, {useEffect, useRef} from 'react';
+import {View, useWindowDimensions} from 'react-native';
+import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 
-const SwiperScreen = ({activeSwipeIndex, setActiveSwipeIndex}) => {
-  const {height} = useWindowDimensions();
+import ProposalRequestFields from './proposalRequestFields';
+
+const SwiperScreen = ({activeStep, setActiveStep}) => {
+  const scrollRef = useRef();
+  const {width, height} = useWindowDimensions();
   const fieldTypes = [
     'RequestDetails',
     'GlobalServices',
@@ -13,30 +15,29 @@ const SwiperScreen = ({activeSwipeIndex, setActiveSwipeIndex}) => {
     'Notes',
   ];
 
-  const width = Dimensions.get('window').width;
+  const scrollToIndex = index => {
+    scrollRef?.current?.scrollTo({x: index * width, y: 0, animated: true});
+  };
+  useEffect(() => {
+    scrollToIndex(activeStep);
+  }, [activeStep]);
 
-  
   return (
     <View style={{marginTop: 20}}>
       <GestureHandlerRootView>
         <ScrollView
+          ref={scrollRef}
+          initialScrollIndex={0}
           horizontal
+          onMomentumScrollEnd={event => {
+            const index = Math.floor(
+              event.nativeEvent.contentOffset.x /
+                event.nativeEvent.layoutMeasurement.width,
+            );
+            setActiveStep(index);
+          }}
           showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          style={{marginHorizontal: -16}}
-          onScroll={e => {
-            console.log(
-              parseInt(
-                e.nativeEvent.contentOffset.x / Dimensions.get('window').width,
-              ),
-            );
-
-            setActiveSwipeIndex(
-              parseInt(
-                e.nativeEvent.contentOffset.x / Dimensions.get('window').width,
-              ),
-            );
-          }}>
+          pagingEnabled>
           {fieldTypes.map((type, i) => {
             return (
               <ProposalRequestFields

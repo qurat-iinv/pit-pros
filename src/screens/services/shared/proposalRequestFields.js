@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {List} from 'react-native-paper';
 
 import {CustomDropDown, InputField} from '../../../components';
 import {Text, View} from 'react-native';
@@ -7,6 +8,9 @@ import {StepperHeading} from '../services';
 
 const ProposalRequestFields = ({fieldType, width, height}) => {
   const [dropdownSelectedVal, setDropdownSelectedVal] = useState(null);
+  const [expanded, setExpanded] = useState(true);
+
+  const handlePress = () => setExpanded(!expanded);
 
   const dropdownOptions = [
     {
@@ -26,9 +30,9 @@ const ProposalRequestFields = ({fieldType, width, height}) => {
   return (
     <View
       style={{
-        // backgroundColor: 'lightblue',
-        width: sizer.moderateScale(353),
-        height: height,
+        // width: sizer.moderateScale(330),
+        width: width,
+        // height: height,
         paddingHorizontal: 16,
       }}>
       {fieldType === 'RequestDetails' && (
@@ -84,12 +88,44 @@ const ProposalRequestFields = ({fieldType, width, height}) => {
           <View
             style={{
               marginTop: sizer.moderateVerticalScale(25),
-              padding: 2,
-              backgroundColor: 'pink',
+              // paddingHorizontal: 10,
+              // paddingTop: 10,
+              // backgroundColor: 'pink',
               borderColor: '#C7C7C7',
-              borderWidth: 3,
+              borderWidth: 1,
             }}>
-            <Text>Heelo</Text>
+            <List.Section>
+              <List.Accordion
+                title="Medium Duty Oil Change"
+                style={{backgroundColor: 'white'}}
+                // left={props => <List.Icon {...props} icon="folder" />}
+                expanded={expanded}
+                onPress={handlePress}>
+                <View style={{flexDirection: 'row'}}>
+                  <List.Item
+                    style={{flex: 0.5, borderWidth: 1, borderColor: 'red'}}
+                    title={
+                      <View style={{flex:1, backgroundColor: "yellow"}}>
+                        <CustomDropDown
+                          data={dropdownOptions}
+                          mt={sizer.moderateVerticalScale(10)}
+                          labelStyle={{color: 'black'}}
+                          label="Customer Complaint *"
+                          value={dropdownSelectedVal}
+                          handleChange={handleChange}
+                          valueField="value"
+                          
+                        />
+                      </View>
+                    }
+                  />
+                  <List.Item
+                    style={{flex: 0.5, borderWidth: 1, borderColor: 'red'}}
+                    title={<Text>Hello</Text>}
+                  />
+                </View>
+              </List.Accordion>
+            </List.Section>
           </View>
         </>
       )}
@@ -97,20 +133,65 @@ const ProposalRequestFields = ({fieldType, width, height}) => {
       {fieldType === 'Scheduling' && (
         <>
           <StepperHeading title="Scheduling" />
-          <View
-            style={{
-              marginTop: sizer.moderateVerticalScale(25),
-              padding: 2,
-              backgroundColor: 'pink',
-              borderColor: '#C7C7C7',
-              borderWidth: 3,
-            }}></View>
+          <View style={{marginTop: sizer.moderateVerticalScale(25)}}>
+            <InputField
+              label="When will the unit be available *"
+              labelStyle={{color: 'black'}}
+              placeholder="9:30AM  Aug 18 2023"
+              inputStyle={{fontWeight: '300'}}
+            />
+
+            <InputField
+              label="When would you like it back? *"
+              labelStyle={{color: 'black'}}
+              placeholder="9:30AM  Aug 18 2023"
+              mt={sizer.moderateVerticalScale(10)}
+              inputStyle={{fontWeight: '300'}}
+            />
+            <InputField
+              label="When would you like to start work? *"
+              labelStyle={{color: 'black'}}
+              placeholder="9:30AM  Aug 18 2023"
+              mt={sizer.moderateVerticalScale(10)}
+              inputStyle={{fontWeight: '300'}}
+            />
+          </View>
         </>
       )}
 
       {fieldType === 'Authorization' && (
         <>
           <StepperHeading title="Authorization" />
+          <View style={{marginTop: sizer.moderateVerticalScale(25)}}>
+            <InputField
+              label="What is the customer purchase order number *"
+              labelStyle={{color: 'black'}}
+              placeholder="1234567890"
+              inputStyle={{fontWeight: '300'}}
+            />
+
+            <CustomDropDown
+              data={dropdownOptions}
+              mt={sizer.moderateVerticalScale(10)}
+              labelStyle={{color: 'black'}}
+              label="Lead Technician *"
+              value={dropdownSelectedVal}
+              handleChange={handleChange}
+              valueField="value"
+            />
+
+            <InputField
+              label="Notes *"
+              mt={sizer.moderateVerticalScale(10)}
+              labelStyle={{color: 'black'}}
+              placeholder="Description"
+              labelColor="#49454F"
+              inputStyle={{fontWeight: '300', textAlignVertical: 'top'}}
+              multiline
+              numberOfLines={5}
+              maxLength={40}
+            />
+          </View>
         </>
       )}
 

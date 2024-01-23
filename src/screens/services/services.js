@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 
 import {Container, Typography} from '../../atom-components';
@@ -8,9 +8,9 @@ import sizer from '../../helpers/sizer';
 import Stepper from '../../components/stepper/stepper';
 import SwiperScreen from './shared/swiperScreen';
 
-export const StepperHeading = ({title}) => {
+export const StepperHeading = ({title, ...otherProps}) => {
   return (
-    <Typography size={sizer.fontScale(14)} bold>
+    <Typography {...otherProps} size={sizer.fontScale(14)} bold>
       {title}
     </Typography>
   );
@@ -24,22 +24,26 @@ const Services = () => {
     setActiveStep(index);
   };
 
-  console.log(activeSwipeIndex);
-
   return (
-    <Container>
-      <Header title="New Service Order" titleCenter />
-      <View style={styles.cardContainer}>
-        <Card title="Services" badgeNumber={2} dollars={6} />
-        <Card title="Products" badgeNumber={2} dollars={6} />
-        <Card title="Total" dollars={12} />
-      </View>
+    <Container pH={0}>
+      <View style={{paddingHorizontal: sizer.moderateScale(16)}}>
+        <Header title="New Service Order" titleCenter />
+        <View style={styles.cardContainer}>
+          <Card title="Services" badgeNumber={2} dollars={6} />
+          <Card title="Products" badgeNumber={2} dollars={6} />
+          <Card title="Total" dollars={12} />
+        </View>
 
-      <View>
-        <Stepper activeStep={activeStep} setActiveStep={setActiveStep} />
+        <Stepper
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          setActiveSwipeIndex={setActiveSwipeIndex}
+        />
       </View>
 
       <SwiperScreen
+        activeStep={activeStep}
+        setActiveStep={setActiveStep}
         activeSwipeIndex={activeSwipeIndex}
         setActiveSwipeIndex={setActiveSwipeIndex}
       />
