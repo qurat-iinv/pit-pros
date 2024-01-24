@@ -4,7 +4,7 @@ import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 
 import ProposalRequestFields from './proposalRequestFields';
 
-const SwiperScreen = ({activeStep, setActiveStep}) => {
+const SwiperScreen = ({activeStep, setActiveStep, setScrollRef}) => {
   const scrollRef = useRef();
   const {width, height} = useWindowDimensions();
   const fieldTypes = [
@@ -18,15 +18,15 @@ const SwiperScreen = ({activeStep, setActiveStep}) => {
   const scrollToIndex = index => {
     scrollRef?.current?.scrollTo({x: index * width, y: 0, animated: true});
   };
-  useEffect(() => {
-    scrollToIndex(activeStep);
-  }, [activeStep]);
+  // useEffect(() => {
+  //   scrollToIndex(activeStep);
+  // }, [activeStep]);
 
   return (
     <View style={{marginTop: 20}}>
       <GestureHandlerRootView>
         <ScrollView
-          ref={scrollRef}
+          ref={setScrollRef}
           initialScrollIndex={0}
           horizontal
           onMomentumScrollEnd={event => {
@@ -35,6 +35,7 @@ const SwiperScreen = ({activeStep, setActiveStep}) => {
                 event.nativeEvent.layoutMeasurement.width,
             );
             setActiveStep(index);
+            console.log(index);
           }}
           showsHorizontalScrollIndicator={false}
           pagingEnabled>

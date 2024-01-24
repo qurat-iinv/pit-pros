@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, useWindowDimensions} from 'react-native';
 
 import {Container, Typography} from '../../atom-components';
 import Header from '../../components/custom-headers/header';
@@ -17,11 +17,26 @@ export const StepperHeading = ({title, ...otherProps}) => {
 };
 
 const Services = () => {
+  const {width} = useWindowDimensions();
+
+  const scrollRef = useRef();
   const [activeStep, setActiveStep] = useState(0);
   const [activeSwipeIndex, setActiveSwipeIndex] = useState(0);
 
   const handleNextStep = index => {
     setActiveStep(index);
+  };
+
+  const setScrollRef = scrollEl => {
+    scrollRef.current = scrollEl;
+  };
+
+  const scrollStepperIndex = index => {
+    scrollRef?.current?.scrollTo({
+      x: index * width,
+      y: 0,
+      animated: true,
+    });
   };
 
   return (
@@ -35,6 +50,7 @@ const Services = () => {
         </View>
 
         <Stepper
+          scrollStepperIndex={scrollStepperIndex}
           activeStep={activeStep}
           setActiveStep={setActiveStep}
           setActiveSwipeIndex={setActiveSwipeIndex}
@@ -42,6 +58,7 @@ const Services = () => {
       </View>
 
       <SwiperScreen
+        setScrollRef={setScrollRef}
         activeStep={activeStep}
         setActiveStep={setActiveStep}
         activeSwipeIndex={activeSwipeIndex}

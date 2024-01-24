@@ -8,6 +8,7 @@ import styles from './ui';
 
 const Stepper = ({
   activeSwipeIndex,
+  scrollStepperIndex,
   activeStep,
   setActiveStep,
   setActiveSwipeIndex,
@@ -24,9 +25,9 @@ const Stepper = ({
   const scrollToIndex = index => {
     scrollRef?.current?.scrollTo({x: index * 133, y: 0, animated: true});
   };
-  useEffect(() => {
-    scrollToIndex(activeStep);
-  }, [activeStep]);
+  // useEffect(() => {
+  //   scrollToIndex(activeStep);
+  // }, [activeStep]);
 
   return (
     <ScrollView
@@ -73,6 +74,7 @@ const Stepper = ({
               onPress={() => {
                 setActiveStep(currentIndex);
                 setActiveSwipeIndex(currentIndex);
+                scrollStepperIndex(currentIndex);
               }}>
               {isStepDone ? (
                 <View style={styles.iconContainer}>
