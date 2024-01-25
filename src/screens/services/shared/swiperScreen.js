@@ -1,8 +1,9 @@
-import React, {useEffect, useRef} from 'react';
+import React, {Fragment, useEffect, useRef} from 'react';
 import {View, useWindowDimensions} from 'react-native';
 import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 
 import ProposalRequestFields from './proposalRequestFields';
+import {PrimaryButton} from '../../../components';
 
 const SwiperScreen = ({activeStep, setActiveStep}) => {
   const scrollRef = useRef();
@@ -22,6 +23,8 @@ const SwiperScreen = ({activeStep, setActiveStep}) => {
     scrollToIndex(activeStep);
   }, [activeStep]);
 
+  console.log(activeStep);
+
   return (
     <View style={{marginTop: 20}}>
       <GestureHandlerRootView>
@@ -40,12 +43,28 @@ const SwiperScreen = ({activeStep, setActiveStep}) => {
           pagingEnabled>
           {fieldTypes.map((type, i) => {
             return (
-              <ProposalRequestFields
-                key={i}
-                width={width}
-                height={height}
-                fieldType={type}
-              />
+              <View key={i}>
+                <ProposalRequestFields
+                  width={width}
+                  height={height}
+                  fieldType={type}
+                />
+
+                <View
+                  style={{
+                    alignItems: 'flex-end',
+                    paddingHorizontal: 16,
+                    marginTop: 18,
+                  }}>
+                  <PrimaryButton
+                    label={
+                      activeStep === fieldTypes.length - 1 ? 'Done' : 'Next'
+                    }
+                    fontSize={12}
+                    btnStyle={{width: 76, height: 31}}
+                  />
+                </View>
+              </View>
             );
           })}
         </ScrollView>

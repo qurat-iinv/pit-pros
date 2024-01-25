@@ -7,7 +7,6 @@ import sizer from '../../helpers/sizer';
 import styles from './ui';
 
 const Stepper = ({
-  activeSwipeIndex,
   activeStep,
   setActiveStep,
   setActiveSwipeIndex,
