@@ -39,6 +39,14 @@ const Services = () => {
     });
   };
 
+  const scrollSwiper = index => {
+    scrollRef?.current?.scrollTo({
+      x: index * 133,
+      y: 0,
+      animated: true,
+    });
+  };
+
   return (
     <Container pH={0}>
       <View style={{paddingHorizontal: sizer.moderateScale(16)}}>
@@ -57,13 +65,14 @@ const Services = () => {
         />
       </View>
 
-      <SwiperScreen
-        setScrollRef={setScrollRef}
+      {/* <SwiperScreen
+        // setScrollRef={setScrollRef}
         activeStep={activeStep}
+        scrollSwiper={scrollSwiper}
         setActiveStep={setActiveStep}
         activeSwipeIndex={activeSwipeIndex}
         setActiveSwipeIndex={setActiveSwipeIndex}
-      />
+      /> */}
     </Container>
   );
 };
