@@ -8,7 +8,7 @@ import sizer from '../../helpers/sizer';
 import Stepper from '../../components/stepper/stepper';
 import SwiperScreen from './shared/swiperScreen';
 
-export const StepperHeading = ({title, ...otherProps}) => {
+export const SwipeScreenHeading = ({title, ...otherProps}) => {
   return (
     <Typography {...otherProps} size={sizer.fontScale(14)} bold>
       {title}
@@ -48,7 +48,7 @@ const Services = () => {
   };
 
   return (
-    <Container pH={0}>
+    <Container pH={0} pT={10}>
       <View style={{paddingHorizontal: sizer.moderateScale(16)}}>
         <Header title="New Service Order" titleCenter />
         <View style={styles.cardContainer}>
