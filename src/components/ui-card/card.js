@@ -1,9 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import sizer from '../../helpers/sizer';
 import {Typography} from '../../atom-components';
+import styles from './ui';
 
 const Card = ({title, badgeNumber, dollars}) => {
   return (
@@ -33,29 +34,3 @@ const Card = ({title, badgeNumber, dollars}) => {
 };
 
 export default Card;
-
-const styles = StyleSheet.create({
-  cardHeader: {
-    flexDirection: 'row',
-    borderColor: 'white',
-    alignSelf: 'flex-start',
-  },
-  linearGradient: {
-    width: sizer.moderateScale(105),
-    height: sizer.moderateVerticalScale(60),
-    position: 'relative',
-    borderRadius: 5,
-    justifyContent: 'center',
-    paddingLeft: sizer.moderateScale(11),
-  },
-  badge: {
-    width: sizer.moderateScale(15),
-    height: sizer.moderateScale(15),
-    backgroundColor: 'white',
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    right: sizer.moderateScale(-20),
-  },
-});

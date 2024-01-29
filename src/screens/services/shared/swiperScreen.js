@@ -1,12 +1,16 @@
-import React, {Fragment, useEffect, useRef} from 'react';
 import {View, useWindowDimensions} from 'react-native';
 import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 
 import ProposalRequestFields from './proposalRequestFields';
 import {PrimaryButton} from '../../../components';
+import sizer from '../../../helpers/sizer';
 
-const SwiperScreen = ({activeStep, setActiveStep}) => {
-  const scrollRef = useRef();
+const SwiperScreen = ({
+  activeStep,
+  setActiveStep,
+  swiperRef,
+  scrollToIndex,
+}) => {
   const {width, height} = useWindowDimensions();
   const fieldTypes = [
     'RequestDetails',
@@ -16,20 +20,11 @@ const SwiperScreen = ({activeStep, setActiveStep}) => {
     'Notes',
   ];
 
-  const scrollToIndex = index => {
-    scrollRef?.current?.scrollTo({x: index * width, y: 0, animated: true});
-  };
-  useEffect(() => {
-    scrollToIndex(activeStep);
-  }, [activeStep]);
-
-  console.log(activeStep);
-
   return (
     <View style={{marginTop: 20}}>
       <GestureHandlerRootView>
         <ScrollView
-          ref={scrollRef}
+          ref={swiperRef}
           initialScrollIndex={0}
           horizontal
           onMomentumScrollEnd={event => {
@@ -37,7 +32,8 @@ const SwiperScreen = ({activeStep, setActiveStep}) => {
               event.nativeEvent.contentOffset.x /
                 event.nativeEvent.layoutMeasurement.width,
             );
-            setActiveStep(index);
+            setActiveStep(index); 
+            scrollToIndex(index, 133);
           }}
           showsHorizontalScrollIndicator={false}
           pagingEnabled>
@@ -53,14 +49,13 @@ const SwiperScreen = ({activeStep, setActiveStep}) => {
                 <View
                   style={{
                     alignItems: 'flex-end',
-                    paddingHorizontal: 16,
-                    marginTop: 18,
+                    paddingHorizontal: sizer.moderateScale(16),
                   }}>
                   <PrimaryButton
                     label={
                       activeStep === fieldTypes.length - 1 ? 'Done' : 'Next'
                     }
-                    fontSize={12}
+                    fontSize={sizer.fontScale(12)}
                     btnStyle={{width: 76, height: 31}}
                   />
                 </View>

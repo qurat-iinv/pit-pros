@@ -37,6 +37,19 @@ const styles = StyleSheet.create({
   textStyle: {
     fontSize: sizer.fontScale(9),
   },
+
+  animatedDiv: {
+    position: 'absolute',
+    // top: 0,
+    // bottom: 0,
+    width: sizer.moderateScale(133),
+    height: sizer.moderateVerticalScale(30),
+    backgroundColor: '#DC0028',
+    zIndex: -10,
+    // left: 16,
+    borderTopRightRadius: 25,
+    borderBottomRightRadius: 25,
+  },
 });
 
 export default styles;

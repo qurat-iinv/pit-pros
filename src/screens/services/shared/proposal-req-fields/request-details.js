@@ -1,61 +1,49 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import {CustomDropDown, InputField} from '../../../../components';
 import sizer from '../../../../helpers/sizer';
+import {CustomDropDown} from '../../../../components';
+import {RenderInputField, SwipeScreenHeading, reqDetail} from '../../utils';
 
-const RequestDetails = ({dropdownSelectedVal}) => {
-  const dropdownOptions = [
-    {
-      label: 'Medium Duty Oil Change',
-      value: 'oilChange',
-    },
-    {
-      label: 'Custom Complaint',
-      value: 'customComplaint',
-    },
-  ];
+const RequestDetails = ({dropdownSelectedVal, handleChange}) => {
   return (
-    <View style={{marginTop: sizer.moderateVerticalScale(25)}}>
-      <InputField
-        label="Who is requesting service *"
-        labelStyle={{color: 'black'}}
-        placeholder="John Doe"
-        inputStyle={{fontWeight: '300'}}
-      />
+    <>
+      <SwipeScreenHeading title="Request Details" />
+      <View style={{marginTop: sizer.moderateVerticalScale(20)}}>
+        <RenderInputField
+          label="Who is requesting service *"
+          placeholder="John Doe"
+        />
 
-      <InputField
-        label="Which unit needs service *"
-        labelStyle={{color: 'black'}}
-        placeholder="Honda Civic Hatchback"
-        mt={sizer.moderateVerticalScale(10)}
-        inputStyle={{fontWeight: '300'}}
-      />
+        <RenderInputField
+          label="Which unit needs service *"
+          placeholder="Honda Civic Hatchback"
+        />
 
-      <CustomDropDown
-        data={dropdownOptions}
-        mt={sizer.moderateVerticalScale(10)}
-        labelStyle={{color: 'black'}}
-        label="Customer Complaint *"
-        value={dropdownSelectedVal}
-        handleChange={handleChange}
-        valueField="value"
-      />
-
-      {dropdownSelectedVal === 'customComplaint' && (
-        <InputField
-          label="Custom Complaint  *"
+        <CustomDropDown
+          data={reqDetail}
           mt={sizer.moderateVerticalScale(10)}
           labelStyle={{color: 'black'}}
+          label="Service Request *"
+          value={dropdownSelectedVal}
           placeholder="Medium Duty Oil Change"
-          labelColor="#49454F"
-          inputStyle={{fontWeight: '300', textAlignVertical: 'top'}}
-          multiline
-          numberOfLines={5}
-          maxLength={40}
+          handleChange={handleChange}
+          valueField="value"
         />
-      )}
-    </View>
+
+        {dropdownSelectedVal === 'customComplaint' && (
+          <RenderInputField
+            label="Service Request *"
+            placeholder="Medium Duty Oil Change"
+            multiline={true}
+          />
+        )}
+
+        <RenderInputField label="Address *" placeholder="Lorem Ipsum" />
+
+        <SwipeScreenHeading title="Address" />
+      </View>
+    </>
   );
 };
 
