@@ -2,15 +2,8 @@ import {View, useWindowDimensions} from 'react-native';
 import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 
 import ProposalRequestFields from './proposalRequestFields';
-import {PrimaryButton} from '../../../components';
-import sizer from '../../../helpers/sizer';
 
-const SwiperScreen = ({
-  activeStep,
-  setActiveStep,
-  swiperRef,
-  scrollToIndex,
-}) => {
+const SwiperScreen = ({setActiveStep, swiperRef, scrollToIndex}) => {
   const {width, height} = useWindowDimensions();
   const fieldTypes = [
     'RequestDetails',
@@ -32,8 +25,8 @@ const SwiperScreen = ({
               event.nativeEvent.contentOffset.x /
                 event.nativeEvent.layoutMeasurement.width,
             );
-            setActiveStep(index); 
             scrollToIndex(index, 133);
+            setActiveStep(index);
           }}
           showsHorizontalScrollIndicator={false}
           pagingEnabled>
@@ -45,20 +38,6 @@ const SwiperScreen = ({
                   height={height}
                   fieldType={type}
                 />
-
-                <View
-                  style={{
-                    alignItems: 'flex-end',
-                    paddingHorizontal: sizer.moderateScale(16),
-                  }}>
-                  <PrimaryButton
-                    label={
-                      activeStep === fieldTypes.length - 1 ? 'Done' : 'Next'
-                    }
-                    fontSize={sizer.fontScale(12)}
-                    btnStyle={{width: 76, height: 31}}
-                  />
-                </View>
               </View>
             );
           })}

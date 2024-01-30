@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import {ScrollView} from 'react-native-gesture-handler';
 
 import sizer from '../../helpers/sizer';
 import styles from './ui';
-import Animated from 'react-native-reanimated';
 
-const Stepper = ({setActiveStep, activeStep, stepperRef, scrollToIndex}) => {
+const Stepper = ({stepperRef, scrollToIndex}) => {
+  const [currentStep, setCurrentStep] = useState(0);
   const STEP_WIDTH = sizer.moderateScale(133);
+
   const steps = [
     'Request Details',
     'Services & Products',
@@ -30,8 +31,7 @@ const Stepper = ({setActiveStep, activeStep, stepperRef, scrollToIndex}) => {
   };
 
   const handlePress = index => {
-    setActiveStep(index);
-    setChildState(index);
+    setCurrentStep(index);
     scrollToIndex(index, STEP_WIDTH);
   };
 
@@ -44,8 +44,8 @@ const Stepper = ({setActiveStep, activeStep, stepperRef, scrollToIndex}) => {
       pagingEnabled>
       <View style={[styles.container]}>
         {steps.map((stepTitle, currentIndex) => {
-          const isActive = activeStep === currentIndex;
-          const isDone = activeStep > currentIndex;
+          const isActive = currentStep === currentIndex;
+          const isDone = currentStep > currentIndex;
           const isLastStep = currentIndex === steps.length - 1;
           const isFirstStep = currentIndex === 0;
           return (
@@ -78,18 +78,3 @@ const Stepper = ({setActiveStep, activeStep, stepperRef, scrollToIndex}) => {
 };
 
 export default Stepper;
-
-const styles2 = StyleSheet.create({
-  wait: {
-    position: 'absolute',
-    // top: 0,
-    // bottom: 0,
-    width: sizer.moderateScale(133),
-    height: sizer.moderateVerticalScale(30),
-    backgroundColor: '#DC0028',
-    zIndex: -10,
-    // left: 16,
-    borderTopRightRadius: 25,
-    borderBottomRightRadius: 25,
-  },
-});

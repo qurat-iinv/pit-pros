@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Flex, Typography} from '../../../../atom-components';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Avatar} from 'react-native-paper';
@@ -6,6 +6,7 @@ import {COLORS} from '../../../../globals';
 import {StyleSheet, View} from 'react-native';
 import sizer from '../../../../helpers/sizer';
 import {SwipeScreenHeading} from '../../utils';
+import AddNoteModal from '../../../../components/custom-modals/add-note';
 
 const Note = ({name, noteText, time = '12:00'}) => {
   return (
@@ -40,7 +41,7 @@ const Note = ({name, noteText, time = '12:00'}) => {
   );
 };
 
-const Notes = () => {
+const Notes = ({visible, setVisible}) => {
   return (
     <>
       <SwipeScreenHeading title="Notes" />
@@ -59,6 +60,8 @@ const Notes = () => {
           noteText="Hey, welcome! We'll take a look at it."
         />
       </View>
+
+      {visible && <AddNoteModal visible={visible} setVisible={setVisible} />}
     </>
   );
 };

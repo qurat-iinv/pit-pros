@@ -34,23 +34,23 @@ export const Table = () => {
         styles.tableHead,
         bold && {borderBottomColor: '#C7C7C7', borderBottomWidth: 0.5},
       ]}>
-      <View style={styles.tableLeft}>
-        <Typography bold={bold} size={11}>
-          {name}
-        </Typography>
-      </View>
+        <View style={styles.tableLeft}>
+          <Typography bold={bold} size={11}>
+            {name}
+          </Typography>
+        </View>
 
-      <View style={styles.tableCenter}>
-        <Typography bold={bold} size={11}>
-          {quantity}
-        </Typography>
-      </View>
+        <View style={styles.tableCenter}>
+          <Typography bold={bold} size={11}>
+            {quantity}
+          </Typography>
+        </View>
 
-      <View style={styles.tableRight}>
-        <Typography bold={bold} size={11}>
-          {cost}
-        </Typography>
-      </View>
+        <View style={styles.tableRight}>
+          <Typography bold={bold} size={11}>
+            {cost}
+          </Typography>
+        </View>
     </View>
   );
 
@@ -72,6 +72,7 @@ export const SwipeScreenHeading = ({title, ...otherProps}) => {
 };
 
 import React from 'react';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const SwipeScreenDropDown = ({label, value}) => {
   return (

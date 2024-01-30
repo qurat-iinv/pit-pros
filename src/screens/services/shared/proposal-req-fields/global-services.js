@@ -21,59 +21,41 @@ const GlobalServices = ({handleChange, dropdownSelectedVal}) => {
 
   return (
     <>
-      <SwipeScreenHeading title="Global Services" />
       <View style={styles.container}>
-        <GestureHandlerRootView>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <List.Section>
-              <List.Accordion
-                titleStyle={{fontSize: 14, color: 'black', marginLeft: -8}}
-                title="Medium Duty Oil Change"
-                style={styles.listAccordion}
-                right={e => (
-                  <Icon
-                    name={e.isExpanded ? 'angle-down' : 'angle-up'}
-                    size={sizer.fontScale(20)}
-                    color="#B8B8B8"
-                    style={{left: sizer.fontScale(4)}}
-                  />
-                )}
-                expanded={expanded}
-                onPress={handlePress}>
-                <View style={styles.dropDownContainer}>
-                  <View style={{flex: 1}}>
-                    <CustomDropDown
-                      data={globalServicesLeft}
-                      labelStyle={{color: 'black'}}
-                      label="Customer Complaint *"
-                      placeholder="heelo"
-                      value={dropdownSelectedVal}
-                      handleChange={handleChange}
-                      valueField="value"
-                    />
-                  </View>
-                  <View style={{flex: 1}}>
-                    <CustomDropDown
-                      data={globalServicesLeft}
-                      labelStyle={{color: 'black'}}
-                      placeholder="heelo"
-                      label="Customer Complaint *"
-                      value={dropdownSelectedVal}
-                      handleChange={handleChange}
-                      valueField="value"
-                    />
-                  </View>
-                </View>
-                <InputField
-                  label="Invoiced Hours *"
-                  labelStyle={{color: 'black'}}
-                  placeholder="1.50000"
-                  mt={sizer.moderateVerticalScale(5)}
-                  inputStyle={{fontWeight: '300'}}
-                />
+        <List.Section>
+          <List.Accordion
+            // rippleColor="#DC0028"
+            titleStyle={{fontSize: 14, color: 'black', marginLeft: -8}}
+            title="Medium Duty Oil Change"
+            style={styles.listAccordion}
+            right={e => (
+              <Icon
+                name={e.isExpanded ? 'angle-down' : 'angle-up'}
+                size={sizer.fontScale(20)}
+                color="#B8B8B8"
+                style={{left: sizer.fontScale(4)}}
+              />
+            )}
+            expanded={expanded}
+            onPress={()=> {
+              styles.wait
+              handlePress()
+            }}>
+            <View style={styles.dropDownContainer}>
+              <View style={{flex: 1}}>
                 <CustomDropDown
                   data={globalServicesLeft}
-                  mt={sizer.moderateVerticalScale(5)}
+                  labelStyle={{color: 'black'}}
+                  label="Customer Complaint *"
+                  placeholder="heelo"
+                  value={dropdownSelectedVal}
+                  handleChange={handleChange}
+                  valueField="value"
+                />
+              </View>
+              <View style={{flex: 1}}>
+                <CustomDropDown
+                  data={globalServicesLeft}
                   labelStyle={{color: 'black'}}
                   placeholder="heelo"
                   label="Customer Complaint *"
@@ -81,68 +63,85 @@ const GlobalServices = ({handleChange, dropdownSelectedVal}) => {
                   handleChange={handleChange}
                   valueField="value"
                 />
-                <InputField
-                  label="DriveAway Amount"
-                  labelStyle={{color: 'black'}}
-                  placeholder="1.50000"
-                  mt={sizer.moderateVerticalScale(5)}
-                  inputStyle={{fontWeight: '300'}}
-                />
+              </View>
+            </View>
+            <InputField
+              label="Invoiced Hours *"
+              labelStyle={{color: 'black'}}
+              placeholder="1.50000"
+              mt={sizer.moderateVerticalScale(5)}
+              inputStyle={{fontWeight: '300'}}
+            />
+            <CustomDropDown
+              data={globalServicesLeft}
+              mt={sizer.moderateVerticalScale(5)}
+              labelStyle={{color: 'black'}}
+              placeholder="heelo"
+              label="Customer Complaint *"
+              value={dropdownSelectedVal}
+              handleChange={handleChange}
+              valueField="value"
+            />
+            <InputField
+              label="DriveAway Amount"
+              labelStyle={{color: 'black'}}
+              placeholder="1.50000"
+              mt={sizer.moderateVerticalScale(5)}
+              inputStyle={{fontWeight: '300'}}
+            />
 
-                <SwipeScreenHeading title="Product" />
-                <Table />
+            <SwipeScreenHeading title="Product" />
+            <Table />
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <TouchableOpacity
+                // activeOpacity={baseOpacity}
+                // style={styles.remember}
+
+                style={{
+                  flexDirection: 'row',
+                  paddingVertical: 10,
+                  alignItems: 'center',
+                }}
+                onPress={() => setSelected(!selected)}>
                 <View
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    width: sizer.fontScale(14),
+                    height: sizer.fontScale(14),
+                    borderWidth: 2,
+                    borderRadius: 2,
+                    borderColor: '  #79747E',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}>
-                  <TouchableOpacity
-                    // activeOpacity={baseOpacity}
-                    // style={styles.remember}
-
-                    style={{
-                      flexDirection: 'row',
-                      paddingVertical: 10,
-                      alignItems: 'center',
-                    }}
-                    onPress={() => setSelected(!selected)}>
-                    <View
-                      style={{
-                        width: sizer.fontScale(14),
-                        height: sizer.fontScale(14),
-                        borderWidth: 2,
-                        borderRadius: 2,
-                        borderColor: '  #79747E',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
-                      {selected ? (
-                        <TickSvg
-                          width={sizer.fontScale(10)}
-                          height={sizer.fontScale(7)}
-                        />
-                      ) : null}
-                    </View>
-                    <Typography size={10} mL={5}>
-                      Pre-Authorized
-                    </Typography>
-                  </TouchableOpacity>
-
-                  <PrimaryButton
-                    label="Add Product"
-                    fontSize={10}
-                    btnStyle={{
-                      backgroundColor: 'white',
-                      width: 91,
-                      height: 31,
-                    }}
-                    textStyle={{color: 'black', fontWeight: 800}}
-                  />
+                  {selected ? (
+                    <TickSvg
+                      width={sizer.fontScale(10)}
+                      height={sizer.fontScale(7)}
+                    />
+                  ) : null}
                 </View>
-              </List.Accordion>
-            </List.Section>
-          </ScrollView>
-        </GestureHandlerRootView>
+                <Typography size={10} mL={5}>
+                  Pre-Authorized
+                </Typography>
+              </TouchableOpacity>
+
+              <PrimaryButton
+                label="Add Product"
+                fontSize={10}
+                btnStyle={{
+                  backgroundColor: 'white',
+                  width: 91,
+                  height: 31,
+                }}
+                textStyle={{color: 'black', fontWeight: 800}}
+              />
+            </View>
+          </List.Accordion>
+        </List.Section>
       </View>
     </>
   );
@@ -152,13 +151,11 @@ export default GlobalServices;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: sizer.moderateVerticalScale(20),
+    // maxHeight: sizer.moderateVerticalScale(440),
     marginBottom: sizer.moderateVerticalScale(18),
     borderWidth: 1,
     borderColor: '#C7C7C7',
     paddingHorizontal: 15,
-    maxHeight: sizer.moderateVerticalScale(440),
-    // backgroundColor: 'pink',
   },
 
   listAccordion: {
@@ -172,4 +169,6 @@ const styles = StyleSheet.create({
     gap: 10,
     marginTop: sizer.moderateVerticalScale(10),
   },
+
+
 });
