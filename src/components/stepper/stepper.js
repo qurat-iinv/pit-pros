@@ -31,15 +31,13 @@ const Stepper = ({stepperRef, scrollToIndex, activeStep, setActiveStep}) => {
   };
 
   const handlePress = index => {
-    setTimeout(() => {
-      setCurrentStep(index);
-    }, 0);
+    setActiveStep(index);
     scrollToIndex(index, STEP_WIDTH);
   };
 
   const Step = ({index, stepTitle}) => {
-    const isActive = currentStep === index;
-    const isDone = currentStep > index;
+    const isActive = activeStep === index;
+    const isDone = activeStep > index;
     const isLastStep = index === 4;
     const isFirstStep = index === 0;
 
@@ -57,7 +55,7 @@ const Stepper = ({stepperRef, scrollToIndex, activeStep, setActiveStep}) => {
         onPress={() => handlePress(index)}>
         {isDone ? (
           <View style={styles.iconContainer}>
-            <Icon name="check" size={sizer.fontScale(10)} color="white" /> 
+            <Icon name="check" size={sizer.fontScale(10)} color="white" />
           </View>
         ) : null}
         <Text style={[getTextColorStyle(isActive, isDone), {fontSize: 12}]}>

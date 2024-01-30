@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {StyleSheet, View, useWindowDimensions} from 'react-native';
 
 import {Container} from '../../atom-components';
@@ -20,14 +20,17 @@ const Services = () => {
   const stepperRef = useRef();
   const swiperRef = useRef();
 
-  const scrollToIndex = (index, STEP_WIDTH) => {
-    stepperRef?.current?.scrollTo({
-      x: index * STEP_WIDTH,
-      y: 0,
-      animated: true,
-    });
-    swiperRef?.current?.scrollTo({x: index * width, y: 0, animated: true});
-  };
+  const scrollToIndex = useCallback(
+    (index, STEP_WIDTH) => {
+      stepperRef?.current?.scrollTo({
+        x: index * STEP_WIDTH,
+        y: 0,
+        animated: true,
+      });
+      swiperRef?.current?.scrollTo({x: index * width, y: 0, animated: true});
+    },
+    [width],
+  );
 
   return (
     <Container pH={0} pT={10}>
@@ -51,8 +54,6 @@ const Services = () => {
       <SwiperScreen
         swiperRef={swiperRef}
         scrollToIndex={scrollToIndex}
-        activeStep={activeStep}
-        handleNextStep={handleNextStep}
         setActiveStep={setActiveStep}
       />
     </Container>

@@ -2,8 +2,10 @@ import {View, useWindowDimensions} from 'react-native';
 import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 
 import ProposalRequestFields from './proposalRequestFields';
+import {memo} from 'react';
 
 const SwiperScreen = ({setActiveStep, swiperRef, scrollToIndex}) => {
+  console.log('yes rendering');
   const {width, height} = useWindowDimensions();
   const fieldTypes = [
     'RequestDetails',
@@ -25,8 +27,8 @@ const SwiperScreen = ({setActiveStep, swiperRef, scrollToIndex}) => {
               event.nativeEvent.contentOffset.x /
                 event.nativeEvent.layoutMeasurement.width,
             );
-            scrollToIndex(index, 133);
             setActiveStep(index);
+            scrollToIndex(index, 133);
           }}
           showsHorizontalScrollIndicator={false}
           pagingEnabled>
@@ -47,4 +49,4 @@ const SwiperScreen = ({setActiveStep, swiperRef, scrollToIndex}) => {
   );
 };
 
-export default SwiperScreen;
+export default memo(SwiperScreen);
