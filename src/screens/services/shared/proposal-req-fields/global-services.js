@@ -25,6 +25,7 @@ const GlobalServices = ({handleChange, dropdownSelectedVal}) => {
         <List.Section>
           <List.Accordion
             // rippleColor="#DC0028"
+            ba
             titleStyle={{fontSize: 14, color: 'black', marginLeft: -8}}
             title="Medium Duty Oil Change"
             style={styles.listAccordion}
