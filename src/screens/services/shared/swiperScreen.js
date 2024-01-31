@@ -3,9 +3,9 @@ import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 
 import ProposalRequestFields from './proposalRequestFields';
 import {memo} from 'react';
-import {Text} from 'react-native-paper';
 
 const SwiperScreen = ({setActiveStep, swiperRef, scrollToIndex}) => {
+  console.log('yes rendering');
   const {width, height} = useWindowDimensions();
   const fieldTypes = [
     'RequestDetails',
@@ -27,8 +27,8 @@ const SwiperScreen = ({setActiveStep, swiperRef, scrollToIndex}) => {
               event.nativeEvent.contentOffset.x /
                 event.nativeEvent.layoutMeasurement.width,
             );
-            scrollToIndex(index, 133);
             setActiveStep(index);
+            scrollToIndex(index, 133);
           }}
           showsHorizontalScrollIndicator={false}
           pagingEnabled>

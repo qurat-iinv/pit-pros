@@ -34,6 +34,36 @@ const Stepper = ({stepperRef, scrollToIndex, setActiveStep, activeStep}) => {
     scrollToIndex(index, STEP_WIDTH);
   };
 
+  const Step = ({index, stepTitle}) => {
+    const isActive = activeStep === index;
+    const isDone = activeStep > index;
+    const isLastStep = index === 4;
+    const isFirstStep = index === 0;
+
+    return (
+      <TouchableOpacity
+        activeOpacity={1}
+        index={index}
+        style={[
+          styles.stepContainer,
+          getStepperStyle(isActive, isDone),
+          !isLastStep ? {marginRight: -15} : null,
+          {zIndex: -1 * index},
+          {paddingLeft: isDone && !isFirstStep ? 25 : 20},
+        ]}
+        onPress={() => handlePress(index)}>
+        {isDone ? (
+          <View style={styles.iconContainer}>
+            <Icon name="check" size={sizer.fontScale(10)} color="white" />
+          </View>
+        ) : null}
+        <Text style={[getTextColorStyle(isActive, isDone), {fontSize: 12}]}>
+          {stepTitle}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <ScrollView
       horizontal

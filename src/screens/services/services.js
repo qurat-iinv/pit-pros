@@ -26,7 +26,11 @@ const Services = () => {
         y: 0,
         animated: true,
       });
+<<<<<<< HEAD
       swiperRef?.current?.scrollTo({x: index * width, y: 0, animated: false});
+=======
+      swiperRef?.current?.scrollTo({x: index * width, y: 0, animated: true});
+>>>>>>> a23a9f06aa4e7b1d6a34a06565157bda518b0a2d
     },
     [width],
   );
@@ -50,7 +54,6 @@ const Services = () => {
 
       <SwiperScreen
         swiperRef={swiperRef}
-        handleNextStep={handleNextStep}
         scrollToIndex={scrollToIndex}
         setActiveStep={setActiveStep}
       />
