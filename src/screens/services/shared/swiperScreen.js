@@ -2,6 +2,8 @@ import {View, useWindowDimensions} from 'react-native';
 import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 
 import ProposalRequestFields from './proposalRequestFields';
+import {memo} from 'react';
+import {Text} from 'react-native-paper';
 
 const SwiperScreen = ({setActiveStep, swiperRef, scrollToIndex}) => {
   const {width, height} = useWindowDimensions();
@@ -47,4 +49,4 @@ const SwiperScreen = ({setActiveStep, swiperRef, scrollToIndex}) => {
   );
 };
 
-export default SwiperScreen;
+export default memo(SwiperScreen);

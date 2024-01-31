@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {StyleSheet, View, useWindowDimensions} from 'react-native';
 
 import {Container} from '../../atom-components';
@@ -10,7 +10,6 @@ import SwiperScreen from './shared/swiperScreen';
 
 const Services = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [activeSwipeIndex, setActiveSwipeIndex] = useState(0);
   const {width} = useWindowDimensions();
 
   const handleNextStep = () => {
@@ -20,14 +19,17 @@ const Services = () => {
   const stepperRef = useRef();
   const swiperRef = useRef();
 
-  const scrollToIndex = (index, STEP_WIDTH) => {
-    stepperRef?.current?.scrollTo({
-      x: index * STEP_WIDTH,
-      y: 0,
-      animated: true,
-    });
-    swiperRef?.current?.scrollTo({x: index * width, y: 0, animated: true});
-  };
+  const scrollToIndex = useCallback(
+    (index, STEP_WIDTH) => {
+      stepperRef?.current?.scrollTo({
+        x: index * STEP_WIDTH,
+        y: 0,
+        animated: true,
+      });
+      swiperRef?.current?.scrollTo({x: index * width, y: 0, animated: false});
+    },
+    [width],
+  );
 
   return (
     <Container pH={0} pT={10}>
@@ -40,19 +42,16 @@ const Services = () => {
         </View>
         <Stepper
           stepperRef={stepperRef}
-          swiperRef={swiperRef}
           scrollToIndex={scrollToIndex}
           activeStep={activeStep}
           setActiveStep={setActiveStep}
-          setActiveSwipeIndex={setActiveSwipeIndex}
         />
       </View>
 
       <SwiperScreen
         swiperRef={swiperRef}
-        scrollToIndex={scrollToIndex}
-        activeStep={activeStep}
         handleNextStep={handleNextStep}
+        scrollToIndex={scrollToIndex}
         setActiveStep={setActiveStep}
       />
     </Container>

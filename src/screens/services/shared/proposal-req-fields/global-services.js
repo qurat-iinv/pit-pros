@@ -1,17 +1,18 @@
 import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import sizer from '../../../../helpers/sizer';
-import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 import {List} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 import {
   CustomDropDown,
   InputField,
   PrimaryButton,
 } from '../../../../components';
+import sizer from '../../../../helpers/sizer';
 import {TickSvg} from '../../../../assets';
 import {Typography} from '../../../../atom-components';
 import {SwipeScreenHeading, Table, globalServicesLeft} from '../../utils';
+import AddProductModal from '../../../../components/custom-modals/add-product';
 
 const GlobalServices = ({handleChange, dropdownSelectedVal}) => {
   const [expanded, setExpanded] = useState(true);
@@ -19,29 +20,30 @@ const GlobalServices = ({handleChange, dropdownSelectedVal}) => {
 
   const handlePress = () => setExpanded(!expanded);
 
+  const [showProductModal, setShowProductModal] = useState(false);
+
   return (
     <>
       <View style={styles.container}>
-        <List.Section>
-          <List.Accordion
-            // rippleColor="#DC0028"
-            ba
-            titleStyle={{fontSize: 14, color: 'black', marginLeft: -8}}
-            title="Medium Duty Oil Change"
-            style={styles.listAccordion}
-            right={e => (
-              <Icon
-                name={e.isExpanded ? 'angle-down' : 'angle-up'}
-                size={sizer.fontScale(20)}
-                color="#B8B8B8"
-                style={{left: sizer.fontScale(4)}}
-              />
-            )}
-            expanded={expanded}
-            onPress={()=> {
-              styles.wait
-              handlePress()
-            }}>
+        {/* <List.Section> */}
+        <List.Accordion
+          titleStyle={{fontSize: 14, color: 'black', marginLeft: -8}}
+          title="Medium Duty Oil Change"
+          style={styles.listAccordion}
+          right={e => (
+            <Icon
+              name={e.isExpanded ? 'angle-down' : 'angle-up'}
+              size={sizer.fontScale(20)}
+              color="#B8B8B8"
+              style={{left: sizer.fontScale(4)}}
+            />
+          )}
+          expanded={expanded}
+          onPress={() => {
+            styles.wait;
+            handlePress();
+          }}>
+          <View style={{paddingHorizontal: 17}}>
             <View style={styles.dropDownContainer}>
               <View style={{flex: 1}}>
                 <CustomDropDown
@@ -99,9 +101,6 @@ const GlobalServices = ({handleChange, dropdownSelectedVal}) => {
                 justifyContent: 'space-between',
               }}>
               <TouchableOpacity
-                // activeOpacity={baseOpacity}
-                // style={styles.remember}
-
                 style={{
                   flexDirection: 'row',
                   paddingVertical: 10,
@@ -139,10 +138,19 @@ const GlobalServices = ({handleChange, dropdownSelectedVal}) => {
                   height: 31,
                 }}
                 textStyle={{color: 'black', fontWeight: 800}}
+                onClick={() => setShowProductModal(true)}
               />
+
+              {showProductModal && (
+                <AddProductModal
+                  visible={showProductModal}
+                  setVisible={setShowProductModal}
+                />
+              )}
             </View>
-          </List.Accordion>
-        </List.Section>
+          </View>
+        </List.Accordion>
+        {/* </List.Section> */}
       </View>
     </>
   );
@@ -156,20 +164,20 @@ const styles = StyleSheet.create({
     marginBottom: sizer.moderateVerticalScale(18),
     borderWidth: 1,
     borderColor: '#C7C7C7',
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
   },
 
   listAccordion: {
     backgroundColor: 'white',
     paddingHorizontal: 0,
-    paddingVertical: 0,
+    paddingVertical: 10,
+    paddingHorizontal: 17,
   },
 
   dropDownContainer: {
     flexDirection: 'row',
     gap: 10,
     marginTop: sizer.moderateVerticalScale(10),
+    // paddingHorizontal: 15,
   },
-
-
 });

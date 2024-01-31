@@ -34,23 +34,23 @@ export const Table = () => {
         styles.tableHead,
         bold && {borderBottomColor: '#C7C7C7', borderBottomWidth: 0.5},
       ]}>
-        <View style={styles.tableLeft}>
-          <Typography bold={bold} size={11}>
-            {name}
-          </Typography>
-        </View>
+      <View style={styles.tableLeft}>
+        <Typography bold={bold} size={11}>
+          {name}
+        </Typography>
+      </View>
 
-        <View style={styles.tableCenter}>
-          <Typography bold={bold} size={11}>
-            {quantity}
-          </Typography>
-        </View>
+      <View style={styles.tableCenter}>
+        <Typography bold={bold} size={11}>
+          {quantity}
+        </Typography>
+      </View>
 
-        <View style={styles.tableRight}>
-          <Typography bold={bold} size={11}>
-            {cost}
-          </Typography>
-        </View>
+      <View style={styles.tableRight}>
+        <Typography bold={bold} size={11}>
+          {cost}
+        </Typography>
+      </View>
     </View>
   );
 
@@ -63,9 +63,9 @@ export const Table = () => {
   );
 };
 
-export const SwipeScreenHeading = ({title, ...otherProps}) => {
+export const SwipeScreenHeading = ({title, style = {}}) => {
   return (
-    <Typography {...otherProps} size={sizer.fontScale(14)} bold>
+    <Typography style={style} size={sizer.fontScale(14)} bold>
       {title}
     </Typography>
   );

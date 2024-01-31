@@ -6,8 +6,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import sizer from '../../helpers/sizer';
 import styles from './ui';
 
-const Stepper = ({stepperRef, scrollToIndex, activeStep, setActiveStep}) => {
-  const [currentStep, setCurrentStep] = useState(0);
+const Stepper = ({stepperRef, scrollToIndex, setActiveStep, activeStep}) => {
   const STEP_WIDTH = sizer.moderateScale(133);
 
   const steps = [
@@ -31,40 +30,8 @@ const Stepper = ({stepperRef, scrollToIndex, activeStep, setActiveStep}) => {
   };
 
   const handlePress = index => {
-    setTimeout(() => {
-      setCurrentStep(index);
-    }, 0);
+    setActiveStep(index);
     scrollToIndex(index, STEP_WIDTH);
-  };
-
-  const Step = ({index, stepTitle}) => {
-    const isActive = currentStep === index;
-    const isDone = currentStep > index;
-    const isLastStep = index === 4;
-    const isFirstStep = index === 0;
-
-    return (
-      <TouchableOpacity
-        activeOpacity={1}
-        index={index}
-        style={[
-          styles.stepContainer,
-          getStepperStyle(isActive, isDone),
-          !isLastStep ? {marginRight: -15} : null,
-          {zIndex: -1 * index},
-          {paddingLeft: isDone && !isFirstStep ? 25 : 20},
-        ]}
-        onPress={() => handlePress(index)}>
-        {isDone ? (
-          <View style={styles.iconContainer}>
-            <Icon name="check" size={sizer.fontScale(10)} color="white" /> 
-          </View>
-        ) : null}
-        <Text style={[getTextColorStyle(isActive, isDone), {fontSize: 12}]}>
-          {stepTitle}
-        </Text>
-      </TouchableOpacity>
-    );
   };
 
   return (
@@ -75,11 +42,35 @@ const Stepper = ({stepperRef, scrollToIndex, activeStep, setActiveStep}) => {
       ref={stepperRef}
       pagingEnabled>
       <View style={[styles.container]}>
-        <Step index={0} stepTitle={steps[0]} />
-        <Step index={1} stepTitle={steps[1]} />
-        <Step index={2} stepTitle={steps[2]} />
-        <Step index={3} stepTitle={steps[3]} />
-        <Step index={4} stepTitle={steps[4]} />
+        {steps.map((stepTitle, currentIndex) => {
+          const isActive = activeStep === currentIndex;
+          const isDone = activeStep > currentIndex;
+          const isLastStep = currentIndex === steps.length - 1;
+          const isFirstStep = currentIndex === 0;
+          return (
+            <TouchableOpacity
+              key={currentIndex}
+              activeOpacity={1}
+              style={[
+                styles.stepContainer,
+                getStepperStyle(isActive, isDone),
+                !isLastStep ? {marginRight: -15} : null,
+                {zIndex: -1 * currentIndex},
+                {paddingLeft: isDone && !isFirstStep ? 25 : 20},
+              ]}
+              onPress={() => handlePress(currentIndex)}>
+              {isDone ? (
+                <View style={styles.iconContainer}>
+                  <Icon name="check" size={sizer.fontScale(10)} color="white" />
+                </View>
+              ) : null}
+              <Text
+                style={[getTextColorStyle(isActive, isDone), {fontSize: 12}]}>
+                {stepTitle}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
     </ScrollView>
   );

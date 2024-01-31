@@ -1,15 +1,22 @@
 import React from 'react';
-import {View} from 'react-native';
 
 import sizer from '../../../../helpers/sizer';
-import {CustomDropDown} from '../../../../components';
+import {CustomDropDown, PrimaryButton} from '../../../../components';
 import {RenderInputField, SwipeScreenHeading, reqDetail} from '../../utils';
+import GoogleMapView from '../../../../components/google-map';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const RequestDetails = ({dropdownSelectedVal, handleChange}) => {
   return (
     <>
       <SwipeScreenHeading title="Request Details" />
-      <View style={{marginTop: sizer.moderateVerticalScale(20)}}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          marginTop: sizer.moderateVerticalScale(20),
+          height: sizer.moderateVerticalScale(450),
+          marginVertical: 16,
+        }}>
         <RenderInputField
           label="Who is requesting service *"
           placeholder="John Doe"
@@ -41,8 +48,14 @@ const RequestDetails = ({dropdownSelectedVal, handleChange}) => {
 
         <RenderInputField label="Address *" placeholder="Lorem Ipsum" />
 
-        <SwipeScreenHeading title="Address" />
-      </View>
+        <SwipeScreenHeading title="Address" style={{marginBottom: 16}}/>
+        <GoogleMapView />
+        <PrimaryButton
+          label="Open it in Google/Apple Map"
+          fontSize={10}
+          btnStyle={{height: sizer.moderateVerticalScale(31), marginTop: 7}}
+        />
+      </ScrollView>
     </>
   );
 };
